@@ -1,0 +1,26 @@
+.CreateAccount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.CreateAccount_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.CreateAccount_input {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-size: smaller;
+
+}
+
+button {
+    margin: 0 2.5px;
+}

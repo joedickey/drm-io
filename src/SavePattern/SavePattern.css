@@ -1,0 +1,26 @@
+.SavePattern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SavePattern_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.SavePattern_input {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-size: smaller;
+
+}
+
+button {
+    margin: 0 2.5px;
+}

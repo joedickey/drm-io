@@ -1,0 +1,4 @@
+.Interface {
+    display: flex;
+    flex-direction: column;
+}

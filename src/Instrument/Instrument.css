@@ -1,0 +1,19 @@
+.step {
+    border: 1px solid black;
+    border-right: none;
+    margin: 0px;
+    cursor: pointer;
+  }
+  
+  .step:last-child {
+     border-right: 1px solid black;
+  }
+
+  .row > .step {
+    border-bottom: none;
+  }
+  
+
+  .clicked {
+    background-color: rgb(148, 148, 148);
+  }

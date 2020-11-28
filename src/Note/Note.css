@@ -1,0 +1,9 @@
+.Note {
+    align-self: center;
+}
+
+.Note > p {
+    max-width: 300px;
+    font-size: smaller;
+    text-align: center;
+}

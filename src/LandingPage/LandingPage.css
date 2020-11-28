@@ -1,0 +1,45 @@
+.LandingPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LandingPage_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LandingPage_intro {
+    text-align: left;
+    max-width: 600px;
+    font-size: smaller;
+}
+
+.LandingPage_input {
+    margin-bottom: 10px;
+}
+
+.LandingPage_signup {
+    margin-top: 5px;
+    font-size: smaller;
+    text-decoration: underline;
+}
+
+label {
+    display: block;
+    font-size: smaller;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+
+
+
