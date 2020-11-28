@@ -16,7 +16,8 @@ const TrBotContext = React.createContext({
     updateVolume: () => {},
     updateStep: () => {},
     playSequencer: () => {},
-    stopSequencer: () => {}
+    stopSequencer: () => {},
+    savePattern: () => {}
 })
 
 export default TrBotContext;

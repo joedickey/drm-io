@@ -171,6 +171,31 @@ class App extends Component {
       allSampler.disconnect()
   }
 
+  savePattern = (patternData) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json' },
+      body: JSON.stringify(patternData)
+    }
+
+    fetch(`http://localhost:8000/api/patterns`, requestOptions)
+          .then(response => {
+              if(!response.ok) {
+                  throw new Error('Could not save pattern')
+              }
+              return response.json()
+          })
+          .catch(err => console.log(err.message))
+
+          console.log('Pattern Saved')
+
+          this.state.patterns.push(patternData)
+          
+          this.setState({
+            patterns: this.state.patterns
+          })
+  }
+
     componentDidMount() {
 
       fetch(`http://localhost:8000/api/patterns`)
@@ -207,7 +232,8 @@ class App extends Component {
       updateVolume: this.updateVolume,
       updateStep: this.updateStep,
       playSequencer: this.playSequencer,
-      stopSequencer: this.stopSequencer
+      stopSequencer: this.stopSequencer,
+      savePattern: this.savePattern
   }
 
     return (
