@@ -1,0 +1,9 @@
+.ClearSteps {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.ClearSteps > button {
+    margin-top: 10px;
+}

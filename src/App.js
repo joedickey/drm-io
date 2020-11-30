@@ -17,15 +17,16 @@ class App extends Component {
         
         this.state = {
             patterns: [],
-            patternSelect: 0,
+            patternSelect: null,
+            currentPatternId: null,
             bpm: 120,
             volume: 100,
-            kickSteps: [],
-            snareSteps: [],
-            hh1Steps: [],
-            hh2Steps: [],
-            clapSteps:[],
-            percSteps: []
+            kickSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            snareSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            hh1Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            hh2Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            clapSteps:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }
 
     }
@@ -39,41 +40,43 @@ class App extends Component {
           clapSteps: this.state.patterns[patternSelect].clap_steps,
           percSteps: this.state.patterns[patternSelect].perc_steps,
       })
-  }
+    }
 
 
-  updatePatternSelect = (index) => {
+    updatePatternSelect = (index, patternId) => {
       this.setState({
-          patternSelect: index
+          patternSelect: index,
+          currentPatternId: patternId
+
       }, () => {
           this.createInstrSteps(this.state.patternSelect)
       }) 
       
-  }
+    }
 
-  updateBpm = (bpm) => {
+    updateBpm = (bpm) => {
       this.setState({
           bpm: bpm
       })
       Tone.Transport.bpm.value = this.state.bpm
-  }
+    }
 
-  updateVolume = (vol) => {
+    updateVolume = (vol) => {
       this.setState({
           volume: vol,
       })
       this.gainControl()
-  }
+    }
 
-  gainControl = () => {
+    gainControl = () => {
       allSampler.disconnect()
       const gain = new Tone.Gain(this.state.volume / 100 < .05 ? 0 : this.state.volume / 100 )
       allSampler.connect(gain)
       gain.toDestination()
-  }
+    }
 
 
-  updateStep = (stepIndex, value, instrument) => {
+    updateStep = (stepIndex, value, instrument) => {
       
       switch (instrument) {
           case 'kick':
@@ -133,9 +136,9 @@ class App extends Component {
           default:
               console.log('That row does not exist')
       }  
-  }
+    }
 
-  playSequencer = () => {
+    playSequencer = () => {
       console.log('Play')
       allSampler.disconnect()
       Tone.Transport.cancel()
@@ -162,39 +165,102 @@ class App extends Component {
           index++;
       }
 
-  }
+    }
 
-  stopSequencer = () => {
+    stopSequencer = () => {
       console.log('Stop')
       Tone.Transport.stop()
       Tone.Transport.cancel()
       allSampler.disconnect()
-  }
-
-  savePattern = (patternData) => {
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json' },
-      body: JSON.stringify(patternData)
     }
 
-    fetch(`http://localhost:8000/api/patterns`, requestOptions)
+    clearSteps = () => {
+        console.log('Steps cleared')
+        this.setState({
+            kickSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            snareSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            hh1Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            hh2Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            clapSteps:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        })
+
+        Tone.Transport.stop()
+        Tone.Transport.cancel()
+        allSampler.disconnect()
+    }
+
+    savePattern = (patternData) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify(patternData)
+        }
+
+        fetch(`http://localhost:8000/api/patterns`, requestOptions)
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error('Could not save pattern')
+                }
+                return response.json()
+            })
+            .catch(err => console.log(err.message))
+               
+        console.log('Pattern Saved')
+
+        this.state.patterns.push(patternData)
+        
+        setTimeout(() => { // refreshes pattern list and updates pattern ID's from database and sets up new blank pattern
+            fetch(`http://localhost:8000/api/patterns`)
+                .then(response => {
+                    if(!response.ok) {
+                        throw new Error('Could not retrieve updated patterns')
+                    }
+                    return response.json()
+                })
+                .then(responseJson => {
+                    this.setState({
+                        patterns: responseJson,
+                        currentPatternId: null,
+                        patternSelect: null,
+                        kickSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        snareSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        hh1Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        hh2Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        clapSteps:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  
+                    })
+                })
+                .catch(err => console.log(err.message))
+        }, 200)
+    }
+
+    deletePattern = (id) => {
+        Tone.Transport.stop() //stop playback
+        Tone.Transport.cancel()
+        allSampler.disconnect()
+        
+        fetch(`http://localhost:8000/api/patterns/${id}`, {method: 'DELETE'})
           .then(response => {
-              if(!response.ok) {
-                  throw new Error('Could not save pattern')
-              }
-              return response.json()
+              if(!response.ok) throw new Error('Could not delete pattern')  
           })
           .catch(err => console.log(err.message))
 
-          console.log('Pattern Saved')
 
-          this.state.patterns.push(patternData)
-          
-          this.setState({
-            patterns: this.state.patterns
-          })
-  }
+        const newPatternsList = this.state.patterns.filter(pattern => pattern.id !== id)
+        
+        this.setState({
+            patterns: newPatternsList,
+            currentPatternId: newPatternsList[this.state.patternSelect].id,
+            kickSteps: newPatternsList[this.state.patternSelect].kick_steps,
+            snareSteps: newPatternsList[this.state.patternSelect].snare_steps,
+            hh1Steps: newPatternsList[this.state.patternSelect].hh1_steps,
+            hh2Steps: newPatternsList[this.state.patternSelect].hh2_steps,
+            clapSteps:newPatternsList[this.state.patternSelect].clap_steps,
+            percSteps: newPatternsList[this.state.patternSelect].perc_steps
+
+        })
+    }
 
     componentDidMount() {
 
@@ -209,32 +275,38 @@ class App extends Component {
               this.setState({
                   patterns: responseJson
               })
+              if(responseJson.length > 0) {
+                this.createInstrSteps(this.state.patternSelect)
+              }
           })
-          .then(() => this.createInstrSteps(this.state.patternSelect))
           .catch(err => console.log(err.message))
       
-  }
+    }
 
-  render() {
-    const contextValue = {
-      patterns: this.state.patterns,
-      patternSelect: this.state.patternSelect,
-      bpm: this.state.bpm,
-      volume: this.state.volume,
-      kickSteps: this.state.kickSteps,
-      snareSteps: this.state.snareSteps,
-      hh1Steps: this.state.hh1Steps,
-      hh2Steps: this.state.hh2Steps,
-      clapSteps:this.state.clapSteps,
-      percSteps: this.state.percSteps,
-      updatePatternSelect: this.updatePatternSelect,
-      updateBpm: this.updateBpm,
-      updateVolume: this.updateVolume,
-      updateStep: this.updateStep,
-      playSequencer: this.playSequencer,
-      stopSequencer: this.stopSequencer,
-      savePattern: this.savePattern
-  }
+
+    render() {
+        const contextValue = {
+        patterns: this.state.patterns,
+        patternSelect: this.state.patternSelect,
+        currentPatternId: this.state.currentPatternId,
+        bpm: this.state.bpm,
+        volume: this.state.volume,
+        kickSteps: this.state.kickSteps,
+        snareSteps: this.state.snareSteps,
+        hh1Steps: this.state.hh1Steps,
+        hh2Steps: this.state.hh2Steps,
+        clapSteps:this.state.clapSteps,
+        percSteps: this.state.percSteps,
+        updatePatternSelect: this.updatePatternSelect,
+        updateBpm: this.updateBpm,
+        updateVolume: this.updateVolume,
+        updateStep: this.updateStep,
+        playSequencer: this.playSequencer,
+        stopSequencer: this.stopSequencer,
+        savePattern: this.savePattern,
+        deletePattern: this.deletePattern,
+        clearSteps: this.clearSteps
+        }
 
     return (
       <main className='App'>

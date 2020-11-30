@@ -4,6 +4,7 @@ import Header from '../Header/Header'
 import Transport from '../Transport/Transport'
 import PatternSelect from '../PatternSelect/PatternSelect'
 import Sequencer from '../Sequencer/Sequencer'
+import ClearSteps from '../ClearSteps/ClearSteps'
 
 
 
@@ -15,6 +16,7 @@ class Interface extends Component {
             <div className='Interface'>
                 <Header />
                 <Transport />
+                <ClearSteps />
                 <Sequencer />
                 <PatternSelect />
             </div>

@@ -3,6 +3,7 @@ import React from 'react'
 const TrBotContext = React.createContext({
     patterns: [],
     patternSelect: 0,
+    currentPatternId: null,
     bpm: 120,
     volume: 100,
     kickSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -17,7 +18,9 @@ const TrBotContext = React.createContext({
     updateStep: () => {},
     playSequencer: () => {},
     stopSequencer: () => {},
-    savePattern: () => {}
+    savePattern: () => {},
+    deletePattern: () => {},
+    clearSteps: () => {}
 })
 
 export default TrBotContext;

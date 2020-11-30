@@ -28,11 +28,11 @@ class SavePattern extends Component {
             <div className='SavePattern'>
                 <h2>Save Pattern:</h2>
                 <TrBotContext.Consumer>
-                    {({savePattern, }) => (
+                    {({savePattern }) => (
                         <form className='SavePattern_form' onSubmit={(e) => this.handleSubmit(e, savePattern)}>
                             <div className='SavePattern_input'>
                                 <label htmlFor='pattern_name'>Pattern Name:</label>
-                                <input type='text' id='pattern_name' name='pattern_name'/>
+                                <input type='text' id='pattern_name' name='pattern_name' required/>
                             </div>
                             <div className='SavePattern_buttons'>
                                 <button type='submit' >Submit</button>
