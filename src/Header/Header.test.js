@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import CreateAccount from './CreateAccount';
+import Header from './Header';
 
 
 it('renders without crashing', () => {
@@ -10,7 +10,7 @@ it('renders without crashing', () => {
 
   ReactDOM.render(
   <Router>
-    <CreateAccount />
+    <Header />
   </Router>, div);
 
   ReactDOM.unmountComponentAtNode(div);
