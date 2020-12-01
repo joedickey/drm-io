@@ -37,12 +37,12 @@ class SavePattern extends Component {
 
     validateNameEntry() {
         const nameEntry = this.state.name.trim()
-        const existingNames = this.context.patterns.map(pattern => pattern.name)
-        console.log(existingNames)
+        const existingNames = this.context.patterns.map(pattern => pattern.name.toLowerCase())
+        
 
         if(nameEntry.length === 0 && this.state.touched) {
             return 'Name is required'
-        } else if(existingNames.indexOf(nameEntry) !== -1) {
+        } else if(existingNames.indexOf(nameEntry.toLowerCase()) !== -1) {
             return 'This name already exists'
         }
 
@@ -62,7 +62,7 @@ class SavePattern extends Component {
                                 <ValidateNameEntry message={this.validateNameEntry()}/>
                             </div>
                             <div className='SavePattern_buttons'>
-                                <button type='submit' >Submit</button>
+                                <button type='submit' disabled={!this.state.touched || this.state.name.trim().length === 0 ? true : false}>Submit</button>
                                 <Link to={'/trbot'}>
                                     <button>Cancel</button>
                                 </Link>

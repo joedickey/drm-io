@@ -8,6 +8,7 @@ import CreateAccount from './CreateAccount/CreateAccount';
 import SavePattern from './SavePattern/SavePattern'
 import Interface from './Interface/Interface'
 import {allSampler} from './samplers.js'
+import config from './config'
 
 class App extends Component {
   static contextType = TrBotContext
@@ -197,7 +198,7 @@ class App extends Component {
             body: JSON.stringify(patternData)
         }
 
-        fetch(`http://localhost:8000/api/patterns`, requestOptions)
+        fetch(`${config.API_ENDPOINT}api/patterns`, requestOptions)
             .then(response => {
                 if(!response.ok) {
                     throw new Error('Could not save pattern')
@@ -211,7 +212,7 @@ class App extends Component {
         this.state.patterns.push(patternData)
         
         setTimeout(() => { // refreshes pattern list and updates pattern ID's from database and sets up new blank pattern
-            fetch(`http://localhost:8000/api/patterns`)
+            fetch(`${config.API_ENDPOINT}api/patterns`)
                 .then(response => {
                     if(!response.ok) {
                         throw new Error('Could not retrieve updated patterns')
@@ -240,7 +241,7 @@ class App extends Component {
         Tone.Transport.cancel()
         allSampler.disconnect()
         
-        fetch(`http://localhost:8000/api/patterns/${id}`, {method: 'DELETE'})
+        fetch(`${config.API_ENDPOINT}api/patterns/${id}`, {method: 'DELETE'})
           .then(response => {
               if(!response.ok) throw new Error('Could not delete pattern')  
           })
@@ -248,23 +249,25 @@ class App extends Component {
 
 
         const newPatternsList = this.state.patterns.filter(pattern => pattern.id !== id)
+
+        const emptySteps = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         
         this.setState({
             patterns: newPatternsList,
-            currentPatternId: newPatternsList[this.state.patternSelect].id,
-            kickSteps: newPatternsList[this.state.patternSelect].kick_steps,
-            snareSteps: newPatternsList[this.state.patternSelect].snare_steps,
-            hh1Steps: newPatternsList[this.state.patternSelect].hh1_steps,
-            hh2Steps: newPatternsList[this.state.patternSelect].hh2_steps,
-            clapSteps:newPatternsList[this.state.patternSelect].clap_steps,
-            percSteps: newPatternsList[this.state.patternSelect].perc_steps
+            currentPatternId: newPatternsList[this.state.patternSelect] === undefined ? null : newPatternsList[this.state.patternSelect].id,
+            kickSteps: newPatternsList[this.state.patternSelect] === undefined ? emptySteps : newPatternsList[this.state.patternSelect].kick_steps,
+            snareSteps: newPatternsList[this.state.patternSelect] === undefined ? emptySteps : newPatternsList[this.state.patternSelect].snare_steps,
+            hh1Steps: newPatternsList[this.state.patternSelect] === undefined ? emptySteps : newPatternsList[this.state.patternSelect].hh1_steps,
+            hh2Steps: newPatternsList[this.state.patternSelect] === undefined ? emptySteps : newPatternsList[this.state.patternSelect].hh2_steps,
+            clapSteps: newPatternsList[this.state.patternSelect] === undefined ? emptySteps : newPatternsList[this.state.patternSelect].clap_steps,
+            percSteps: newPatternsList[this.state.patternSelect] === undefined ? emptySteps : newPatternsList[this.state.patternSelect].perc_steps
 
         })
     }
 
     componentDidMount() {
 
-      fetch(`http://localhost:8000/api/patterns`)
+      fetch(`${config.API_ENDPOINT}api/patterns`)
           .then(response => {
               if(!response.ok) {
                   throw new Error('Could not retrieve patterns')

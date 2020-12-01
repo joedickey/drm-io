@@ -22,6 +22,7 @@ class PatternSelect extends Component {
 
     handleClick = (callback) => {
         const id = this.context.currentPatternId
+        console.log(callback)
         callback(id)
     }
 
