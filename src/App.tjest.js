@@ -5,7 +5,10 @@ import App from './App';
 
 
 
-it.skip('renders without crashing', () => {  //keeps saying 'ReferenceError: AudioBuffer is not defined' but renders in browser
+it('renders without crashing', () => {  //keeps saying 'ReferenceError: AudioBuffer is not defined' but renders in browser
+
+    const div = document.createElement('div');
+
 
     ReactDOM.render(
     <Router>
