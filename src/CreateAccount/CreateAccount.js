@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './CreateAccount.css'
-import {Router,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 class CreateAccount extends Component {

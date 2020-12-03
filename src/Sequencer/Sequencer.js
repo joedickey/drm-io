@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Sequencer.css'
 import TrBotContext from '../TrBotContext.js'
 import Instrument from '../Instrument/Instrument'
+import StepTracker from '../StepTracker/StepTracker'
 
 
 class Sequencer extends Component {
@@ -38,6 +39,9 @@ class Sequencer extends Component {
                         <label>Perc</label>
                         <Instrument instrumentSteps={this.context.percSteps} instrument='perc'/>
                     </div>
+                </div>
+                <div className='StepTracker_channel'>
+                        <StepTracker instrumentSteps={this.context.stepTracker} instrument='' />
                 </div>
             </div>
         )

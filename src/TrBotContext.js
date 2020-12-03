@@ -12,6 +12,7 @@ const TrBotContext = React.createContext({
     hh2Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     clapSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    currentStep: null,
     updatePatternSelect: () => {},
     updateBpm: () => {},
     updateVolume: () => {},

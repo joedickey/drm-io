@@ -8,7 +8,7 @@ import CreateAccount from './CreateAccount/CreateAccount';
 import SavePattern from './SavePattern/SavePattern'
 import Interface from './Interface/Interface'
 import {allSampler} from './samplers.js'
-import config from './config'
+import {API_ENDPOINT} from './config'
 
 class App extends Component {
   static contextType = TrBotContext
@@ -27,10 +27,12 @@ class App extends Component {
             hh1Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             hh2Steps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             clapSteps:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            currentStep: null
         }
 
     }
+
 
     createInstrSteps = (patternSelect) => {
       this.setState({
@@ -150,8 +152,13 @@ class App extends Component {
       const notes = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4']
       let index = 0;
 
+      this.setState({
+          currentStep: 0
+      })
+
       Tone.start()                    
       Tone.Transport.scheduleRepeat(repeat, '16n')
+      Tone.Transport.scheduleRepeat(this.transportVisual, '16n')
       Tone.Transport.start()
       
       
@@ -168,11 +175,20 @@ class App extends Component {
 
     }
 
+    transportVisual = () => {
+        this.setState(prevState => ({
+            currentStep: (prevState.currentStep + 1) % 16})
+        )
+    }
+
     stopSequencer = () => {
       console.log('Stop')
       Tone.Transport.stop()
       Tone.Transport.cancel()
       allSampler.disconnect()
+      this.setState({
+          currentStep: null
+      })
     }
 
     clearSteps = () => {
@@ -186,9 +202,7 @@ class App extends Component {
             percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         })
 
-        Tone.Transport.stop()
-        Tone.Transport.cancel()
-        allSampler.disconnect()
+        this.stopSequencer()
     }
 
     savePattern = (patternData) => {
@@ -198,7 +212,7 @@ class App extends Component {
             body: JSON.stringify(patternData)
         }
 
-        fetch(`${config.API_ENDPOINT}api/patterns`, requestOptions)
+        fetch(`${API_ENDPOINT}api/patterns`, requestOptions)
             .then(response => {
                 if(!response.ok) {
                     throw new Error('Could not save pattern')
@@ -212,7 +226,7 @@ class App extends Component {
         this.state.patterns.push(patternData)
         
         setTimeout(() => { // refreshes pattern list and updates pattern ID's from database and sets up new blank pattern
-            fetch(`${config.API_ENDPOINT}api/patterns`)
+            fetch(`${API_ENDPOINT}api/patterns`)
                 .then(response => {
                     if(!response.ok) {
                         throw new Error('Could not retrieve updated patterns')
@@ -237,11 +251,9 @@ class App extends Component {
     }
 
     deletePattern = (id) => {
-        Tone.Transport.stop() //stop playback
-        Tone.Transport.cancel()
-        allSampler.disconnect()
+        this.stopSequencer() //stop playback
         
-        fetch(`${config.API_ENDPOINT}api/patterns/${id}`, {method: 'DELETE'})
+        fetch(`${API_ENDPOINT}api/patterns/${id}`, {method: 'DELETE'})
           .then(response => {
               if(!response.ok) throw new Error('Could not delete pattern')  
           })
@@ -267,7 +279,7 @@ class App extends Component {
 
     componentDidMount() {
 
-      fetch(`${config.API_ENDPOINT}api/patterns`)
+      fetch(`${API_ENDPOINT}api/patterns`)
           .then(response => {
               if(!response.ok) {
                   throw new Error('Could not retrieve patterns')
@@ -283,32 +295,35 @@ class App extends Component {
               }
           })
           .catch(err => console.log(err.message))
+
+          
       
     }
 
 
     render() {
         const contextValue = {
-        patterns: this.state.patterns,
-        patternSelect: this.state.patternSelect,
-        currentPatternId: this.state.currentPatternId,
-        bpm: this.state.bpm,
-        volume: this.state.volume,
-        kickSteps: this.state.kickSteps,
-        snareSteps: this.state.snareSteps,
-        hh1Steps: this.state.hh1Steps,
-        hh2Steps: this.state.hh2Steps,
-        clapSteps:this.state.clapSteps,
-        percSteps: this.state.percSteps,
-        updatePatternSelect: this.updatePatternSelect,
-        updateBpm: this.updateBpm,
-        updateVolume: this.updateVolume,
-        updateStep: this.updateStep,
-        playSequencer: this.playSequencer,
-        stopSequencer: this.stopSequencer,
-        savePattern: this.savePattern,
-        deletePattern: this.deletePattern,
-        clearSteps: this.clearSteps
+            patterns: this.state.patterns,
+            patternSelect: this.state.patternSelect,
+            currentPatternId: this.state.currentPatternId,
+            bpm: this.state.bpm,
+            volume: this.state.volume,
+            kickSteps: this.state.kickSteps,
+            snareSteps: this.state.snareSteps,
+            hh1Steps: this.state.hh1Steps,
+            hh2Steps: this.state.hh2Steps,
+            clapSteps:this.state.clapSteps,
+            percSteps: this.state.percSteps,
+            currentStep: this.state.currentStep,
+            updatePatternSelect: this.updatePatternSelect,
+            updateBpm: this.updateBpm,
+            updateVolume: this.updateVolume,
+            updateStep: this.updateStep,
+            playSequencer: this.playSequencer,
+            stopSequencer: this.stopSequencer,
+            savePattern: this.savePattern,
+            deletePattern: this.deletePattern,
+            clearSteps: this.clearSteps
         }
 
     return (
