@@ -1,71 +1,22 @@
 import * as Tone from 'tone'
-
-export const kickSampler =
-    
-    new Tone.Sampler({
-        urls: {
-            C4: "trbotkick.mp3",
-        },
-        baseUrl: "/audio/",
-    })
-
-export const snareSampler =
-    
-    new Tone.Sampler({
-        urls: {
-            C4: "trbotsnare.mp3", 
-        },
-        baseUrl: "/audio/",
-    })
-
-export const hh1Sampler =
-    
-    new Tone.Sampler({
-        urls: {
-            C4: "trbothh1.mp3", 
-        },
-        baseUrl: "/audio/",
-    })
-
-export const hh2Sampler =
-    
-    new Tone.Sampler({
-        urls: {
-            C4: "trbothh2.mp3", 
-        },
-        baseUrl: "/audio/",
-    })
-
-export const clapSampler =
-    
-    new Tone.Sampler({
-        urls: {
-            C4: "trbotclap.mp3", 
-        },
-        baseUrl: "/audio/",
-    })
-
-export const percSampler =
-    
-    new Tone.Sampler({
-        urls: {
-            C4: "trbotperc.mp3", 
-        },
-        baseUrl: "/audio/",
-    })
+import Kick from './audio/trbotkick.mp3'
+import Snare from './audio/trbotsnare.mp3'
+import HH1 from './audio/trbothh1.mp3'
+import HH2 from './audio/trbothh2.mp3'
+import Clap from './audio/trbotclap.mp3'
+import Perc from './audio/trbotperc.mp3'
 
 
 export const allSampler =
     
     new Tone.Sampler({
         urls: {
-            C4: "trbotkick.mp3",
-            D4: "trbotsnare.mp3",
-            E4: "trbothh1.mp3",
-            F4: "trbothh2.mp3",
-            G4: "trbotclap.mp3", 
-            A4: "trbotperc.mp3",
+            C4: Kick,
+            D4: Snare,
+            E4: HH1,
+            F4: HH2,
+            G4: Clap, 
+            A4: Perc,
         },
         onload: function() {console.log('samples loaded')},
-        baseUrl: "/audio/",
     })
