@@ -21,29 +21,15 @@ class LandingPage extends Component {
                         <li>Percussion (Perc)</li>
                     </ul>
                     <p>
-                    The grid is that of a 16-step sequencer where each square (or step) represents a subdivision of musical time from left to right. The user is encouraged to experiment with building their own unique patterns by toggling any of the steps on or off. 
+                    The grid is that of a 16-step sequencer where each square (or step) represents a subdivision of musical time from left to right. The user is encouraged to experiment with building their own unique patterns by clicking any of the steps on or off. 
                     </p>
                     <p>
                     Now let's get to making some music!
                     </p>
                 </div>
-                <h3>Login:</h3>
-                <form className='LandingPage_login'>
-                    <div className='LandingPage_input'>
-                        <label htmlFor='username'>Username:</label>
-                        <input type='text' id='username' name='username'/>
-                    </div>
-                    <div className='LandingPage_input'>
-                        <label htmlFor='password'>Password:</label>
-                        <input type='password' id='password' name='password'/>
-                    </div>
                     <Link to={'/trbot'}>
-                        <button type='submit'>Submit</button>
+                        <button >Start</button>
                     </Link>
-                </form>
-                <Link to={'/createaccount'}>
-                    <p className='LandingPage_signup'>Not a user? Sign Up</p>
-                </Link>
             </div>
         )
     }

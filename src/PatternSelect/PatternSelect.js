@@ -10,9 +10,7 @@ class PatternSelect extends Component {
     static contextType = TrBotContext
 
     handleChange = (e, callback) => {
-        Tone.Transport.stop() //stop playback
-        Tone.Transport.cancel()
-        allSampler.disconnect()
+        this.stopPlayback()
    
         const index = e.target.value
         const id = this.context.patterns[index].id
@@ -52,13 +50,14 @@ class PatternSelect extends Component {
                     {({updatePatternSelect, deletePattern}) => (
                         <>
                          <label htmlFor="pattern">Pattern:</label>
-                         <select id="pattern" name="pattern" value={this.context.patternSelect === null ? '' : this.context.patternSelect} onChange={(e) => this.handleChange(e, updatePatternSelect)}>
+                         <select id="pattern" name="pattern" value={this.context.patternSelect === null ? '' : this.context.patternSelect} disabled={this.context.currentStep != null} onChange={(e) => this.handleChange(e, updatePatternSelect)}>
                             {placeHolder(this.context.currentPatternId)}
                             {patternOptions}
                          </select>
-                         <Link to={'savepattern'}>
-                            <button className='PatternSelect_button' onClick={() => this.stopPlayback()}>Save</button>
-                         </Link>
+                         
+                    <button className='PatternSelect_button' onClick={() => this.stopPlayback()}>
+                        <Link to={'savepattern'}>Save</Link>
+                    </button>   
                     <button className='PatternSelect_button' onClick={() => this.handleClick(deletePattern)}>Delete</button>
                         </>
                     )} 

@@ -16,14 +16,9 @@ class Header extends Component {
         return (
             <div className='Header'>
                 <header>
-                    <Link to={'/trbot'}>
-                        <h1>TR-BOT</h1>
+                    <Link to={'/'}>
+                        <h1 onClick={() => this.handleClick()}>TR-BOT</h1>
                     </Link>
-                     <button onClick={() => this.handleClick()}>
-                        <Link to={'/'}>
-                            Log Out
-                        </Link>
-                    </button>
                 </header>
             </div>
         )

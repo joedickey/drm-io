@@ -153,12 +153,12 @@ class App extends Component {
       let index = 0;
 
       this.setState({
-          currentStep: 0
+          currentStep: -4
       })
 
       Tone.start()                    
       Tone.Transport.scheduleRepeat(repeat, '16n')
-      Tone.Transport.scheduleRepeat(this.transportVisual, '16n')
+      Tone.Transport.scheduleRepeat(this.transportVisual, '4n')
       Tone.Transport.start()
       
       
@@ -177,7 +177,7 @@ class App extends Component {
 
     transportVisual = () => {
         this.setState(prevState => ({
-            currentStep: (prevState.currentStep + 1) % 16})
+            currentStep: (prevState.currentStep + 4) % 16})
         )
     }
 
