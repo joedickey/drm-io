@@ -206,6 +206,10 @@ class App extends Component {
     }
 
     savePattern = (patternData) => {
+        this.setState({
+            currentStep: null
+        })
+
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json' },
@@ -252,6 +256,9 @@ class App extends Component {
 
     deletePattern = (id) => {
         this.stopSequencer() //stop playback
+        this.setState({
+            currentStep: null
+        })
         
         fetch(`${API_ENDPOINT}api/patterns/${id}`, {method: 'DELETE'})
           .then(response => {
