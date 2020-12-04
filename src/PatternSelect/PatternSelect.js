@@ -58,7 +58,7 @@ class PatternSelect extends Component {
                     <button className='PatternSelect_button' onClick={() => this.stopPlayback()}>
                         <Link to={'savepattern'}>Save</Link>
                     </button>   
-                    <button className='PatternSelect_button' onClick={() => this.handleClick(deletePattern)}>Delete</button>
+                    <button className='PatternSelect_button' disabled={this.context.currentPatternId === null} onClick={() => this.handleClick(deletePattern)}>Delete</button>
                         </>
                     )} 
                 </TrBotContext.Consumer>

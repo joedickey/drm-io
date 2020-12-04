@@ -137,12 +137,10 @@ class App extends Component {
               })
               break;
           default:
-              console.log('That row does not exist')
       }  
     }
 
     playSequencer = () => {
-      console.log('Play')
       allSampler.disconnect()
       Tone.Transport.cancel()
       
@@ -182,7 +180,6 @@ class App extends Component {
     }
 
     stopSequencer = () => {
-      console.log('Stop')
       Tone.Transport.stop()
       Tone.Transport.cancel()
       allSampler.disconnect()
@@ -192,7 +189,6 @@ class App extends Component {
     }
 
     clearSteps = () => {
-        console.log('Steps cleared')
         this.setState({
             kickSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             snareSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -223,9 +219,8 @@ class App extends Component {
                 }
                 return response.json()
             })
-            .catch(err => console.log(err.message))
+            .catch(err => err.message)
                
-        console.log('Pattern Saved')
 
         this.state.patterns.push(patternData)
         
@@ -250,7 +245,7 @@ class App extends Component {
                         percSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  
                     })
                 })
-                .catch(err => console.log(err.message))
+                .catch(err => err.message)
         }, 200)
     }
 
@@ -264,7 +259,7 @@ class App extends Component {
           .then(response => {
               if(!response.ok) throw new Error('Could not delete pattern')  
           })
-          .catch(err => console.log(err.message))
+          .catch(err => err.message)
 
 
         const newPatternsList = this.state.patterns.filter(pattern => pattern.id !== id)
@@ -301,7 +296,7 @@ class App extends Component {
                 this.createInstrSteps(this.state.patternSelect)
               }
           })
-          .catch(err => console.log(err.message))
+          .catch(err => err.message)
 
           
       

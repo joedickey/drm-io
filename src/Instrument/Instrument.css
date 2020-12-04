@@ -27,3 +27,11 @@
     border-bottom: 1px solid black;
   }
 
+  @media all and (max-width: 330px) {
+    .step {
+        font-size: smaller;
+        padding: 1.5px 0px;
+        
+    }
+  }
+

@@ -14,3 +14,23 @@
 .third {
     margin-left: 3px;
 }
+
+
+@media all and (max-width: 330px) {
+    .StepTracker {
+        margin-left: 50px;
+    }
+    
+    .tracker {
+        font-size: smaller;
+        padding-right:52px;
+    }
+    
+    .second {
+        margin-left: 0px;
+    }
+    
+    .third {
+        margin-left: 3px;
+    }
+  }

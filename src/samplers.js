@@ -18,5 +18,5 @@ export const allSampler =
             G4: Clap, 
             A4: Perc,
         },
-        onload: function() {console.log('samples loaded')},
+        onload: function() {},
     })
