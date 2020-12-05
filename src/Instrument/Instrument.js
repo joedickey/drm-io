@@ -24,7 +24,7 @@ class Instrument extends Component {
                 return (
                     <TrBotContext.Consumer key={uuidv4()}>
                         {({updateStep}) => (
-                            <span key={uuidv4()} className={`step clicked ${currentStep === index ? 'current_step' : ''}`} id={index} value={1} onClick={(e) => this.handleClick(e, 1, instrument, updateStep)}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span key={uuidv4()} className={`step clicked ${currentStep === index ? 'current_step' : ''}`} id={index} value={1} onClick={(e) => this.handleClick(e, 1, instrument, updateStep)}>&nbsp;&nbsp;</span>
                         )}
                     </TrBotContext.Consumer>
                 )
@@ -32,7 +32,7 @@ class Instrument extends Component {
                 return (
                     <TrBotContext.Consumer key={uuidv4()}>
                             {({updateStep}) => (
-                                <span key={uuidv4()} className={`step ${currentStep === index ? 'current_step' : ''}`} id={index} value={0} onClick={(e) => this.handleClick(e, 0, instrument, updateStep)}>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span key={uuidv4()} className={`step ${currentStep === index ? 'current_step' : ''}`} id={index} value={0} onClick={(e) => this.handleClick(e, 0, instrument, updateStep)}>&nbsp;&nbsp;</span>
                             )}
                         </TrBotContext.Consumer>
                     )

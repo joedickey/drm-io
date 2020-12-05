@@ -7,7 +7,7 @@ class LandingPage extends Component {
     render() {
         return (
             <div className='LandingPage'>
-                <h1>Welcome to TR-BOT</h1>
+                <h1>Welcome to TR&#8209;BOT</h1>
                 <div className='LandingPage_intro'>
                     <p>
                     The TR-BOT is a drum machine application that allows a user to create musical percussion tracks in their browser. The TR-BOT's name is inspired by the iconic line of Roland's hardware drum machines (i.e. TR-808, TR-909, TR-606) and by default, the app supplies 6 individual drum sounds that include:

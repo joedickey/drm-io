@@ -4,11 +4,14 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
 }
 
 header > button {
     align-self: center;
+  }
+
+header > a {
+    margin-bottom: 30px;
   }
 
 

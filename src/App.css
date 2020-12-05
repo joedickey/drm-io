@@ -2,6 +2,15 @@
     padding: 0 10px;
 }
 
+h1 {
+    font-family: 'TR-909';
+    font-size: 45px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-family: 'TR-909';
+}
 
 a:link {
     text-decoration: none;
@@ -22,3 +31,37 @@ a:active {
     text-decoration: none;
     color: lightgray;
 }
+
+button {
+    border-radius: 0%;
+    border: 1.5px solid #2B2F38;
+    background-color: #C9D6DF;
+    padding: 8px 5px;
+    box-shadow: .2px .2px 1px #6F7C94 ;
+    font-family: 'TR-909';
+    font-size: 16px;
+}
+
+button:disabled {
+    border: 2px solid #C9D6DF;
+}
+
+button:active {
+    border: 2px solid #C9D6DF;
+}
+
+select {
+    font-family: monospace;
+}
+
+input {
+    font-family: monospace;
+}
+
+@media all and (max-width: 373px) {
+    button {
+        font-size: 14px;
+        padding: 7px 4px;
+        
+    }
+  }

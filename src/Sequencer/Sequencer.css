@@ -21,11 +21,7 @@
     margin-right: 10px;
 }
 
-.Sequencer_channel:last-of-type .row {
-    border-bottom: 1px solid black;
-}
-
-@media all and (max-width: 330px) {
+@media all and (max-width: 373px) {
     .Sequencer_channel > label {
         margin-right: 5px;
         

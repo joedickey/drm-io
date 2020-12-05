@@ -3,6 +3,8 @@
     border-right: none;
     margin: 0px;
     cursor: pointer;
+    background-color: #FEFEFE;
+    font-size: 16px;
   }
   
   .step:last-child {
@@ -15,11 +17,11 @@
   
 
   .clicked {
-    background-color: rgb(148, 148, 148);
+    background-color: #6F7C94;
   }
 
   .current_step {
-    border-left: 3px solid black;
+    border-left: 3px solid #2B2F38;
     
   }
 
@@ -27,11 +29,10 @@
     border-bottom: 1px solid black;
   }
 
-  @media all and (max-width: 330px) {
+  @media all and (max-width: 373px) {
     .step {
         font-size: smaller;
-        padding: 1.5px 0px;
-        
+        padding: 1.5px 0px; 
     }
   }
 

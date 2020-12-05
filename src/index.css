@@ -5,9 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ECEFF3;
+  font-family: monospace;
+  font-size: 16px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: "TR-909";
+  src: local("TR-909"),
+    url("./fonts/TR-909.ttf") format("truetype");
+  font-weight: normal;
 }

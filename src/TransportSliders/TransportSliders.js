@@ -19,9 +19,9 @@ class TransportSliders extends Component {
                     {({updateBpm, updateVolume}) => (
                         <>
                         <label htmlFor="volume">Volume: {volume}</label>
-                        <input type="range" id="volume" name="volume" min="0" max="100" defaultValue={100} onChange={(e) => this.handleChange(e, updateVolume)}/>  
+                        <input type="range" id="volume" className="slider" name="volume" min="0" max="100" defaultValue={100} onChange={(e) => this.handleChange(e, updateVolume)}/>  
                         <label htmlFor="bpm">BPM: {bpm}</label>
-                        <input type="range" id="bpm" name="bpm" min="40" max="300" defaultValue={120}  onChange={(e) => this.handleChange(e, updateBpm)}/>
+                        <input type="range" id="bpm" className="slider" name="bpm" min="40" max="300" defaultValue={120}  onChange={(e) => this.handleChange(e, updateBpm)}/>
                         </>
                     )}
                 </TrBotContext.Consumer>
