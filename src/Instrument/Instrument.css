@@ -34,5 +34,9 @@
         font-size: smaller;
         padding: 1.5px 0px; 
     }
+
+    .row:last-child > .step {
+      border-bottom: 1px solid black;
+    }
   }
 

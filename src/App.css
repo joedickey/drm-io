@@ -52,6 +52,12 @@ button:active {
 
 select {
     font-family: monospace;
+    background-color: white;
+}
+
+option {
+    font-family: monospace;
+    background-color: white;
 }
 
 input {
