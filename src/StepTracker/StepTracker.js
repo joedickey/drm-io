@@ -5,7 +5,7 @@ import TrBotContext from '../TrBotContext.js'
 
 
 
-class StepTracker extends Component {
+class StepTracker extends Component { // step marker to help user visualize the sequencer into musical beats
 
     render() {
         return (

@@ -12,9 +12,9 @@ class SavePattern extends Component {
         touched: false
     }
 
-    handleSubmit = (event, callback) => {
+    handleSubmit = (event, callback) => { 
         event.preventDefault()
-        const patternData = {
+        const patternData = { //formats data to send to POST
             "name": event.target.pattern_name.value,
             "user_id": 0,
             "kick_steps": this.context.kickSteps,
@@ -28,7 +28,7 @@ class SavePattern extends Component {
         this.props.history.push('/trbot')
     }
 
-    changeNameState = (event) => {
+    changeNameState = (event) => { //used validate name input
         this.setState({
             name: event.target.value,
             touched: true

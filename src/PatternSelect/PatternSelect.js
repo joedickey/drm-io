@@ -20,7 +20,6 @@ class PatternSelect extends Component {
 
     handleClick = (callback) => {
         const id = this.context.currentPatternId
-        console.log(callback)
         callback(id)
     }
 
@@ -45,7 +44,7 @@ class PatternSelect extends Component {
         })
 
         return (
-            <div className='PatternSelect'>
+            <div className='PatternSelect'> 
                 <TrBotContext.Consumer>
                     {({updatePatternSelect, deletePattern}) => (
                         <>

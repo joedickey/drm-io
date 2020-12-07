@@ -34,7 +34,7 @@ class App extends Component {
     }
 
 
-    createInstrSteps = (patternSelect) => {
+    createInstrSteps = (patternSelect) => { //generates steps based on the selected pattern
       this.setState({
           kickSteps: this.state.patterns[patternSelect].kick_steps,
           snareSteps: this.state.patterns[patternSelect].snare_steps,
@@ -46,7 +46,7 @@ class App extends Component {
     }
 
 
-    updatePatternSelect = (index, patternId) => {
+    updatePatternSelect = (index, patternId) => { //updates patternSelect id from PatternSelect component
       this.setState({
           patternSelect: index,
           currentPatternId: patternId
@@ -57,21 +57,21 @@ class App extends Component {
       
     }
 
-    updateBpm = (bpm) => {
+    updateBpm = (bpm) => { //updates tempo from TransportSliders component
       this.setState({
           bpm: bpm
       })
       Tone.Transport.bpm.value = this.state.bpm
     }
 
-    updateVolume = (vol) => {
+    updateVolume = (vol) => { //updates volume from TransportSliders component
       this.setState({
           volume: vol,
       })
       this.gainControl()
     }
 
-    gainControl = () => {
+    gainControl = () => { //creates a Gain object from Tone.js that controls the output volume
       allSampler.disconnect()
       const gain = new Tone.Gain(this.state.volume / 100 < .05 ? 0 : this.state.volume / 100 )
       allSampler.connect(gain)
@@ -79,7 +79,7 @@ class App extends Component {
     }
 
 
-    updateStep = (stepIndex, value, instrument) => {
+    updateStep = (stepIndex, value, instrument) => { //function used to toggle step value on/off (1/0) in Instrument component
       
       switch (instrument) {
           case 'kick':
@@ -140,8 +140,8 @@ class App extends Component {
       }  
     }
 
-    playSequencer = () => {
-      allSampler.disconnect()
+    playSequencer = () => { //connects the sampler instrument (allSampler) to the Transport of Tone.js. Allows for playback to repeat and keeps audio in sync
+      allSampler.disconnect() //resets playback if already playing
       Tone.Transport.cancel()
       
       this.gainControl()
@@ -161,19 +161,18 @@ class App extends Component {
       
       
       function repeat(time) {
-          let step = index % 16;
-          for (let i = 0; i < notes.length; i++) {  //replace notes with samplers
-              //let sampler = samplers[i];
+          let step = index % 16; //sequence repeats after 16steps of playback
+          for (let i = 0; i < notes.length; i++) { 
               let note = notes[i]
               let sequence = instrumentSeqs[i];
-              if (sequence[step] === 1)allSampler.triggerAttackRelease([note], '16n', time) //allSampler with sampler
+              if (sequence[step] === 1)allSampler.triggerAttackRelease([note], '16n', time) 
           }
           index++;
       }
 
     }
 
-    transportVisual = () => {
+    transportVisual = () => { //visualizer set to follow each quarter note of playback
         this.setState(prevState => ({
             currentStep: (prevState.currentStep + 4) % 16})
         )
@@ -188,7 +187,7 @@ class App extends Component {
       })
     }
 
-    clearSteps = () => {
+    clearSteps = () => { //clears out any steps in current pattern
         this.setState({
             kickSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             snareSteps: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

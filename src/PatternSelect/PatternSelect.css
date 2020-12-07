@@ -14,3 +14,22 @@
     margin-left: 5px;
     margin-right: 0px;
 }
+
+@media all and (max-width: 330px) {
+    .PatternSelect {
+        flex-direction: column; 
+        max-width: 150px;
+        align-self: center;
+        margin-top: 5px;
+    }
+
+    .PatternSelect > label {
+        margin-bottom: 3px;
+    }
+
+    .PatternSelect_button {
+        max-width: 100px;
+        align-self: center;
+        margin-top: 5px;
+    }
+  }

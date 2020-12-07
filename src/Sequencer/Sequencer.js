@@ -49,5 +49,3 @@ class Sequencer extends Component {
 }
 
 export default Sequencer;
-
-//<Instrument instrument={instrObj.key} />

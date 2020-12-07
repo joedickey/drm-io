@@ -7,7 +7,7 @@ import Clap from './audio/trbotclap.mp3'
 import Perc from './audio/trbotperc.mp3'
 
 
-export const allSampler =
+export const allSampler = //sampler instrument object from Tone.js. Handles all the audio.
     
     new Tone.Sampler({
         urls: {

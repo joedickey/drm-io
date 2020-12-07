@@ -18,7 +18,7 @@ class Instrument extends Component {
     render() {
         let currentStep = this.context.currentStep
         const instrument = this.props.instrument
-        const steps = this.props.instrumentSteps.map((step, index) => {
+        const steps = this.props.instrumentSteps.map((step, index) => { // renders a clickable square for each step of the pattern based on on-value (1) or off-value (0)
             
             if(step === 1){
                 return (
