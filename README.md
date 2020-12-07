@@ -28,7 +28,7 @@ Supported HTTP methods:
 
 ## Technology Used
 
-### Back End
+### Front End
 * React
 * Javascript ES6
 * Tone.js
